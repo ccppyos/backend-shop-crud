@@ -32,3 +32,5 @@ const PORT = process.env.PORT || 5000
 
 
 app.listen(PORT, console.log(`server up 5000 ${process.env.NODE_ENV}`));
+
+module.exports = app

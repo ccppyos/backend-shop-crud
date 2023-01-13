@@ -23,6 +23,9 @@ app.use(express.urlencoded({extended:true}));
 app.get('/', (req, res) => {
     res.send('API IS RUNNING');
 })
+app.get('/api', (req, res) => {
+    res.send('API IS RUNNING d');
+})
 
 app.use('/api/products', productRoutes)
 app.use('/api/orders', orderRoutes)

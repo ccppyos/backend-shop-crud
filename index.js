@@ -2,7 +2,6 @@ const dotenv = require('dotenv')
 const express = require('express')
 const mongoose = require('mongoose');
 const productRoutes = require('./routes/productRoutes')
-const Product = require("../models/productModel")
 const orderRoutes = require('./routes/orderRoutes')
 const cors = require('cors');
 
@@ -24,18 +23,6 @@ app.use(express.urlencoded({extended:true}));
 app.get('/', (req, res) => {
     res.send('API IS RUNNING');
 })
-app.get('/api', (req, res) => {
-    res.send('API IS RUNNING d');
-})
-const router = express.Router();
-
-router.get('/api/orders', async (req, res) => {
-
-    const products = await Product.find({ "status": true })
-
-    res.json(products);
-})
-
 
 app.use('/api/products', productRoutes)
 app.use('/api/orders', orderRoutes)

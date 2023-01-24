@@ -121,10 +121,12 @@ router.delete('/:id', (req,res)=>{
 
 
 async function createOrder(body){
+    const [day, month, year] = body.date.split('/');
+
     let order = new Order({
         orderNumber: body.orderNumber,
         statusOrder: body.statusOrder,
-        date: body.date,
+        date: new Date(year,month,day),
         customer: body.customer,
         taxesAmount: body.taxesAmount,
         totalTaxes: body.totalTaxes,

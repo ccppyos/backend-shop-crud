@@ -64,6 +64,8 @@ router.delete('/:id', (req, res) => {
 })
 
 
+//Functions: 
+
 async function createProduct(body) {
     let producto = new Product({
         name: body.name,

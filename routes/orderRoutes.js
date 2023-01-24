@@ -121,10 +121,14 @@ router.delete('/:id', (req,res)=>{
 
 
 async function createOrder(body){
+
+
+    const [day, month, year] = body.date.split('/');
+
     let order = new Order({
         orderNumber: body.orderNumber,
         statusOrder: body.statusOrder,
-        date: body.date,
+        date: new Date(year,month,day),
         customer: body.customer,
         taxesAmount: body.taxesAmount,
         totalTaxes: body.totalTaxes,
@@ -145,8 +149,7 @@ async function addItem(id,item){
 
     order.items.push(item);
 
-    const subTotal = order.items.reduce((partialSum, item) => {console.log(item) 
-        return partialSum + (item.product.price) * (item.qty)}, 0)
+    const subTotal = order.items.reduce((partialSum, item) => {return partialSum + (item.product.price) * (item.qty)}, 0)
     const totalTaxes = subTotal * (0.01 + 0.05 + 0.08 + 0.02)
 
     order.taxesAmount = subTotal
@@ -162,9 +165,9 @@ async function deleteItem(id,item){
 
     let order = await Order.findById(id).populate('items.product');
 
-    const nuevoArray =  order.items.filter((i) => (i._id.toString()) !== item._id) 
+    const newArray =  order.items.filter((i) => (i._id.toString()) !== item._id) 
 
-    order.items = nuevoArray;
+    order.items = newArray;
 
 
     const subTotal = order.items.reduce((partialSum, item) => {console.log(item) 
